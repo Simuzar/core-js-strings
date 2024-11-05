@@ -334,8 +334,12 @@ function countVowels(str) {
  *   isPalindrome('apple') => false
  *   isPalindrome('No lemon, no melon') => true
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  let stringReverse = '';
+  for (let i = str.length; i >= 0; i -= 1) {
+    stringReverse += str.charAt(i);
+  }
+  return str.toLowerCase() === stringReverse.toLowerCase();
 }
 
 /**
@@ -350,8 +354,10 @@ function isPalindrome(/* str */) {
  *   findLongestWord('A long and winding road') => 'winding'
  *   findLongestWord('No words here') => 'words'
  */
-function findLongestWord(/* sentence */) {
-  throw new Error('Not implemented');
+function findLongestWord(sentence) {
+  const words = sentence.split(' ');
+  words.sort((a, b) => b.length - a.length);
+  return words[0];
 }
 
 /**
@@ -365,16 +371,21 @@ function findLongestWord(/* sentence */) {
  *   reverseWords('The Quick Brown Fox') => 'ehT kciuQ nworB xoF'
  */
 function reverseWords(str) {
-  //   let reverseWord = ''
-  //   let reversePhrase = '';
-  // for (let i = 0; i < str.length; i ++) {
-  //   for (let j = i.length - 1; j >= 0; j -= 1) {
-  //     reverseWord += i.charAt(j);
-  //   }
-  //   reversePhrase +=reverseWord
-  // }
-  //   return newPhrase;
-  return str;
+  const phrases = str.split(' ');
+  phrases.forEach((element) => {
+    if (element.indexOf() !== 0) {
+      phrases.splice(element.indexOf(), 0, 0);
+    }
+  });
+
+  let reverseWord = '';
+
+  phrases.forEach((element) => {
+    for (let i = element.length; i >= 0; i -= 1) {
+      reverseWord += element.charAt(i);
+    }
+  });
+  return reverseWord;
 }
 
 /**
@@ -481,8 +492,19 @@ function extractEmails(str) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const output = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  let result = '';
+  for (let i = 0; i < str.length; i += 1) {
+    if (input.includes(str[i])) {
+      const index = input.indexOf(str[i]);
+      result += output[index];
+    } else {
+      result += str[i];
+    }
+  }
+  return result;
 }
 
 /**
