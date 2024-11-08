@@ -146,8 +146,14 @@ function repeatString(str, times) {
  *   removeFirstOccurrences('I like legends', 'end') => 'I like legs'.
  *   removeFirstOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
-function removeFirstOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeFirstOccurrences(str, value) {
+  if (str.indexOf(value) === -1) {
+    return str;
+  }
+  return (
+    str.slice(0, str.indexOf(value)) +
+    str.slice(str.indexOf(value) + value.length)
+  );
 }
 
 /**
@@ -162,8 +168,14 @@ function removeFirstOccurrences(/* str, value */) {
  *   removeLastOccurrences('I like legends', 'end') => 'I like legs'.
  *   removeLastOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
-function removeLastOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeLastOccurrences(str, value) {
+  if (str.lastIndexOf(value) === -1) {
+    return str;
+  }
+  return (
+    str.slice(0, str.lastIndexOf(value)) +
+    str.slice(str.lastIndexOf(value) + value.length)
+  );
 }
 
 /**
@@ -269,13 +281,8 @@ function reverseString(str) {
  *   orderAlphabetically('abc123xyz') => '123abcxyz'
  */
 function orderAlphabetically(str) {
-  let string = '';
-  for (let i = 0; i <= str.length; i += 1) {
-    if (str.charAt(i).localeCompare(str.charAt(i + 1)) < 0) {
-      string += str.charAt(i);
-    }
-  }
-  return string;
+  const newString = str.split('');
+  return newString.sort((a, b) => a.charCodeAt() - b.charCodeAt()).join('');
 }
 
 /**
@@ -335,11 +342,8 @@ function countVowels(str) {
  *   isPalindrome('No lemon, no melon') => true
  */
 function isPalindrome(str) {
-  let stringReverse = '';
-  for (let i = str.length; i >= 0; i -= 1) {
-    stringReverse += str.charAt(i);
-  }
-  return str.toLowerCase() === stringReverse.toLowerCase();
+  const strFiltered = str.toLowerCase().replace(/[^a-z]/g, '');
+  return strFiltered === strFiltered.split('').reverse().join('');
 }
 
 /**
@@ -372,20 +376,11 @@ function findLongestWord(sentence) {
  */
 function reverseWords(str) {
   const phrases = str.split(' ');
-  phrases.forEach((element) => {
-    if (element.indexOf() !== 0) {
-      phrases.splice(element.indexOf(), 0, 0);
-    }
-  });
-
-  let reverseWord = '';
-
-  phrases.forEach((element) => {
-    for (let i = element.length; i >= 0; i -= 1) {
-      reverseWord += element.charAt(i);
-    }
-  });
-  return reverseWord;
+  const result = [];
+  phrases.forEach((element) =>
+    result.push(element.split('').reverse().join(''))
+  );
+  return result.join(' ');
 }
 
 /**
